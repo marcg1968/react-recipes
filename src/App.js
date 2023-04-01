@@ -1,6 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
 
+import './App.css'
+import { Main } from './components/Main'
+// import { createContext } from 'react'
+
+function App() {
+    return (
+        <div>
+            <Main />
+        </div>
+    )
+}
+
+/*
 function App() {
   return (
     <div className="App">
@@ -21,5 +33,6 @@ function App() {
     </div>
   );
 }
+*/
 
-export default App;
+export default App
