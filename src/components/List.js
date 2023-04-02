@@ -44,7 +44,7 @@ export const List = () => {
                         <>
                             <h1>Recipes</h1>
                             <SortableTitles data={recipeTitles} />
-                            <pre>{JSON.stringify(recipeTitles, null, 2)}</pre>
+                            {/* <pre>{JSON.stringify(recipeTitles, null, 2)}</pre> */}
                         </>
                     )
             }

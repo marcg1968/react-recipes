@@ -72,8 +72,7 @@ export const Recipe = props => {
                             {
                                 parts.map((e, i) => <Part key={`part-${i}`} { ...parts[i] } n={i} />) 
                             }
-                            {/* <pre>{JSON.stringify(recipe, null, 2)}</pre> */}
-                            <pre>{JSON.stringify(recipeTitles, null, 2)}</pre>
+                            {/* <pre>{JSON.stringify(recipeTitles, null, 2)}</pre> */}
                         </>
                     )
                     : <p>loading ...</p>
