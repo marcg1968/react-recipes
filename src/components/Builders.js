@@ -54,3 +54,28 @@ export const Header3 = styled.h3`
 export const Header4 = styled.h4`
     text-align: center;
 `
+
+export const IngredientContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    justify-content: center;
+    margin-bottom: 2rem;
+`
+
+export const IngredientRow = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border: 1px solid salmon;
+    width: 680px;
+    margin: auto; /* centers it horizontally */
+    padding-bottom: .5rem;
+    padding-top: .5rem;
+`
+
+export const MethodContainer = styled.ol`
+    width: 860px;
+    margin: auto auto 2rem auto; /* auto centers it horizontally */
+    // margin: auto; /* auto centers it horizontally */
+`

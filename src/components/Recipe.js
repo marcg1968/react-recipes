@@ -4,11 +4,14 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { ApiEndpoint } from '../common/constants'
-import { sleep } from '../common/functions'
+// import { sleep } from '../common/functions'
 import {
-    Header2,
+    // Header2,
     Header3,
-    Header4,
+    // Header4,
+    IngredientRow,
+    IngredientContainer,
+    MethodContainer,
 } from './Builders'
 
 const { urlRecipe } = ApiEndpoint
@@ -76,35 +79,34 @@ const Part = ({ title = null, ingreds = null, method = null, n = 0 }) => {
             {
                 ingreds
                     ? (
-                        <div className='ingred-cont'>
+                        <IngredientContainer>
                             {   title && <Header3>{title}</Header3> }
                             {
                                 // ingreds.map(({ name='', qty={} }, i) => (
                                 ingreds.map(({ name='', qty: { amt='', unit='' } }, i) => {
                                     unit = unit === 'x' ? '' : `${unit}\u00A0`
                                     return (
-                                        <div
+                                        <IngredientRow
                                             key={`ingred-${n}-${i}`}
-                                            className='ingred-row'
                                         >
                                             <div className='ingred-col-1 text-right'>{amt}&nbsp;{unit}</div>
                                             <div className='ingred-col-3'>{name}</div>
-                                        </div>
+                                        </IngredientRow>
                                     )
                                 })
                             }
-                        </div>
+                        </IngredientContainer>
                     )
                     : null
             }
             {
                 method
                     ? (
-                        <ol className='method-cont'>
+                        <MethodContainer>
                         {
                             method.map((e, i) => <li>{e}</li>)
                         }
-                        </ol>
+                        </MethodContainer>
                     )
                     : null
             }
