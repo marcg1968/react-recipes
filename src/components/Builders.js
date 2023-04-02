@@ -33,3 +33,11 @@ export const Dot = styled.div`
     margin: 0 0.25rem;
 `
 
+export const Searchfield = styled.input`
+    border-radius: 3px;
+    border: 3px solid crimson;
+    margin: .5rem;
+    padding: .5rem;
+    display: block;
+    min-width: 50vw;
+`
