@@ -7,23 +7,33 @@ import { Recipe } from './components/Recipe'
 import { Search } from './components/Search'
 import { Routes, Route } from 'react-router-dom'
 import { Navbar } from './components/Navbar'
+import React, { createContext, useState } from 'react'
+
+export const RecipeListContext = createContext(null)
 
 function App() {
+
+    const [recipeTitles, setRecipeTitles] = useState({})
+
     return (
         <div className='App'>
-            <Navbar />
-            <main>
-                <Routes>
-                    <Route path='/' element={ <Main /> } />
-                    <Route path='/search' element={ <Search /> } />
-                    <Route path='/list' element={ <List /> } />
-                    <Route
-                        path='/recipe/:id'
-                        element={<Recipe />}
-                        // loader={({ params }) => params.id}
-                    />
-                </Routes>
-            </main>
+            {/* <RecipeListContext.Provider value={recipeTitles}> */}
+            <RecipeListContext.Provider value={[recipeTitles, setRecipeTitles]}>
+                <Navbar />
+                <main>
+                    <Routes>
+                        <Route path='/' element={ <Main /> } />
+                        <Route path='/search' element={ <Search /> } />
+                        {/* <Route path='/list' element={ <List setRecipeTitles={setRecipeTitles} /> } /> */}
+                        <Route path='/list' element={ <List /> } />
+                        <Route
+                            path='/recipe/:id'
+                            element={<Recipe />}
+                            // loader={({ params }) => params.id}
+                        />
+                    </Routes>
+                </main>
+            </RecipeListContext.Provider>
         </div>
     )
 }

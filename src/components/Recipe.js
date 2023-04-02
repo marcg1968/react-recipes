@@ -1,6 +1,6 @@
 // Recipe.js
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { ApiEndpoint } from '../common/constants'
@@ -13,6 +13,7 @@ import {
     IngredientContainer,
     MethodContainer,
 } from './Builders'
+import { RecipeListContext } from '../App'
 
 const { urlRecipe } = ApiEndpoint
 
@@ -24,6 +25,8 @@ export const Recipe = props => {
     const [loaded,   setLoaded]   = useState(false)
     const [recipe,   setRecipe]   = useState({})
     const [recipeId,          ]   = useState(id)
+
+    const [recipeTitles, setRecipeTitles] = useContext(RecipeListContext)
 
     const getRecipe = useCallback(async () => {
         if (!recipeId) return
@@ -69,7 +72,8 @@ export const Recipe = props => {
                             {
                                 parts.map((e, i) => <Part key={`part-${i}`} { ...parts[i] } n={i} />) 
                             }
-                            <pre>{JSON.stringify(recipe, null, 2)}</pre>
+                            {/* <pre>{JSON.stringify(recipe, null, 2)}</pre> */}
+                            <pre>{JSON.stringify(recipeTitles, null, 2)}</pre>
                         </>
                     )
                     : <p>loading ...</p>
@@ -110,7 +114,9 @@ const Part = ({ title = null, ingreds = null, method = null, n = 0 }) => {
                     ? (
                         <MethodContainer>
                         {
-                            method.map((e, i) => <li>{e}</li>)
+                            method.map((e, i) => (
+                                <li key={`meth-${n}-${i}`}>{e}</li>
+                            ))
                         }
                         </MethodContainer>
                     )
