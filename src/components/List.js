@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
 import { ApiEndpoint } from '../common/constants'
-import { sleep } from '../common/functions'
+// import { sleep } from '../common/functions'
 import { SortableTitles } from './SortableTitles'
 
 const { urlRecipes } = ApiEndpoint

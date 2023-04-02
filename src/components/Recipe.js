@@ -23,7 +23,7 @@ export const Recipe = props => {
 
     const [loaded,   setLoaded]   = useState(false)
     const [recipe,   setRecipe]   = useState({})
-    const [recipeId, setRecipeId] = useState(id)
+    const [recipeId,          ]   = useState(id)
 
     const getRecipe = useCallback(async () => {
         if (!recipeId) return
@@ -36,7 +36,7 @@ export const Recipe = props => {
             setLoaded(true)
         }
         catch (err) { console.error(19, { err }) }
-    }, [])
+    }, [recipeId])
 
     useEffect(() => {
         getRecipe()
@@ -50,6 +50,14 @@ export const Recipe = props => {
     
     // parts[0].title = null // remove "__MAIN__"
     if (parts && parts instanceof Array) parts[0].title = null // remove "__MAIN__"
+    // const metadata = meta instanceof Array ? meta.reduce((acc, curr) => (acc[curr[0]] = curr[1], acc), {}) : {}
+    const metadata = meta instanceof Array 
+        ? meta.reduce((acc, curr) => {
+            acc[curr[0]] = curr[1]
+            return acc
+        }, {}) 
+        : {}
+    const { lang } = metadata || {}
 
     return (
         <div>
@@ -57,17 +65,15 @@ export const Recipe = props => {
                 loaded && parts instanceof Array
                     ? (
                         <>
-                            <h1>{title}</h1>
+                            <h1>{title}&nbsp;{lang && lang === 'de' ? '(in German)' : ''}</h1>
                             {
                                 parts.map((e, i) => <Part key={`part-${i}`} { ...parts[i] } n={i} />) 
                             }
-                            {/* <pre>{JSON.stringify(recipe, null, 2)}</pre> */}
+                            <pre>{JSON.stringify(recipe, null, 2)}</pre>
                         </>
                     )
                     : <p>loading ...</p>
             }
-            {/* Recipe {params.id} */}
-            {/* <pre>{JSON.stringify(params, null, 2)}</pre> */}
         </div>
     )
 }
@@ -114,11 +120,11 @@ const Part = ({ title = null, ingreds = null, method = null, n = 0 }) => {
     )
 }
 
-
+/*
 const Ingredients = props => {
-
     return (
         <>
         </>
     )
 }
+*/
