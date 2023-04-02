@@ -1,7 +1,7 @@
 // Recipe.js
 
 import React, { useCallback, useEffect, useState, useContext } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { ApiEndpoint } from '../common/constants'
 // import { sleep } from '../common/functions'
@@ -27,6 +27,10 @@ export const Recipe = props => {
     const [recipeId,          ]   = useState(id)
 
     const [recipeTitles, setRecipeTitles] = useContext(RecipeListContext)
+
+    useEffect(() => { /* need to get recipeTitles from backend */
+        // if (!recipeTitles.length) 
+    }, [])
 
     const getRecipe = useCallback(async () => {
         if (!recipeId) return
@@ -62,13 +66,44 @@ export const Recipe = props => {
         : {}
     const { lang } = metadata || {}
 
+    const PrevOrNextLink = ({ type = 'next' }) => {
+
+        if (    !recipeTitles
+            ||  !recipeTitles instanceof Array
+            ||  !recipeTitles.length
+        ) return null
+
+        // console.log(76, typeof recipeTitles)
+        // console.log(77, recipeTitles instanceof Array)
+        // console.log(78, recipeTitles)
+        // return null
+    
+        // find position in list
+        const idx = recipeTitles.findIndex(e => e._id === id)
+        const nextRecipe = (idx + 1 < recipeTitles.length) ? recipeTitles[(idx + 1)] : null
+        const prevRecipe = (idx > 0) ? recipeTitles[(idx - 1)] : null
+        // console.log(84, {id, idx, nextRecipe, _next: recipeTitles[idx + 1], _len: recipeTitles.length})
+        if (type === 'next' && !nextRecipe) return null
+        if (type === 'prev' && !prevRecipe) return null
+        // // title={`Next recipe: ${nextRecipe.title}`} 
+        // console.log(70, {idx, nextRecipe})
+
+        return type === 'prev'
+            ? (<Link className='prevnextlink' to={`/recipe/${nextRecipe._id}`}>&lt;&lt;&nbsp;&nbsp;</Link>)
+            : (<Link className='prevnextlink' to={`/recipe/${nextRecipe._id}`}>&nbsp;&nbsp;&gt;&gt;</Link>)
+    }    
+
     return (
         <div>
             {
                 loaded && parts instanceof Array
                     ? (
                         <>
-                            <h1>{title}&nbsp;{lang && lang === 'de' ? '(in German)' : ''}</h1>
+                            <h1>
+                                <PrevOrNextLink type='prev' />
+                                {title}&nbsp;{lang && lang === 'de' ? '(in German)' : ''}
+                                <PrevOrNextLink type='next' />
+                            </h1>
                             {
                                 parts.map((e, i) => <Part key={`part-${i}`} { ...parts[i] } n={i} />) 
                             }

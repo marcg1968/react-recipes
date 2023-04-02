@@ -58,11 +58,16 @@ li {
     padding: .3rem;
     text-align: left;
 }
+.link,
 li > a,
 li > a:visited {
     color: aliceblue;
+    color: cornflowerblue;
 }
-
+.prevnextlink {
+    text-decoration: none;
+    color: cornflowerblue;
+}
 div.ingred-col {
     flex: 1;
 }
