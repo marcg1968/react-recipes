@@ -1,6 +1,7 @@
 // SortableTitles.js
 
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export const SortableTitles = props => {
 
@@ -9,18 +10,16 @@ export const SortableTitles = props => {
     } = props
 
     return (
-        <div>
-            <ul>
-            {
-                data
-                .sort((a, b) => a.title < b.title ? -1 : 1)
-                .map((e, i) => (
-                    <li key={`title-${i}`}>
-                        <a href={`/recipe/${e._id}`}>{e.title}</a>
-                    </li>
-                ))
-            }
-            </ul>
-        </div>
+        <ul>
+        {
+            data
+            .sort((a, b) => a.title < b.title ? -1 : 1)
+            .map((e, i) => (
+                <li key={`title-${i}`}>
+                    <Link to={`/recipe/${e._id}`}>{e.title}</Link>
+                </li>
+            ))
+        }
+        </ul>
     )
 }
