@@ -47,3 +47,63 @@ main {
     transform: rotate(360deg);
   }
 }
+
+pre {
+    text-align: left;
+    font-size: .85rem;
+}
+
+ul {
+    text-align: left;
+    font-size: 1rem;
+}
+
+li {
+    margin: .3rem;
+    padding: .3rem;
+    text-align: left;
+}
+li > a,
+li > a:visited {
+    color: aliceblue;
+}
+
+div.ingred-cont {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    justify-content: center;
+}
+div.ingred-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border: 1px solid salmon;
+    width: 680px;
+    margin: auto; /* centers it horizontally */
+    padding-bottom: .5rem;
+    padding-top: .5rem;
+}
+div.ingred-cont,
+.method-cont {
+    margin-bottom: 2rem;
+}
+.method-cont {
+    width: 860px;
+    margin: auto; /* centers it horizontally */
+}
+div.ingred-col {
+    flex: 1;
+}
+div.ingred-col-1 {
+    flex: 1;
+}
+div.ingred-col-2 {
+    flex: 2;
+}
+div.ingred-col-3 {
+    flex: 3;
+}
+.text-right {
+    text-align: right;
+}

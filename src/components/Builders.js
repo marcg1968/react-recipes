@@ -35,9 +35,22 @@ export const Dot = styled.div`
 
 export const Searchfield = styled.input`
     border-radius: 3px;
-    border: 3px solid crimson;
-    margin: .5rem;
-    padding: .5rem;
+    border: 3px solid salmon;
+    margin: 1rem;
+    padding: 1rem;
     display: block;
-    min-width: 50vw;
+    // min-width: 50vw;
+    width: 500px;
+`
+
+export const Header2 = styled.h2`
+    text-align: center;
+`
+
+export const Header3 = styled.h3`
+    text-align: center;
+`
+
+export const Header4 = styled.h4`
+    text-align: center;
 `

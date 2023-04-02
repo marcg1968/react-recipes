@@ -6,7 +6,7 @@ import { Searchfield } from './Builders'
 export const Search = () => {
     return (
         <div>
-            Search
+            Search:
             <Searchfield />
         </div>
     )
