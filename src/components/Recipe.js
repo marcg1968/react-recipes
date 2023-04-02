@@ -1,7 +1,7 @@
 // Recipe.js
 
 import React, { useCallback, useEffect, useState, useContext } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { ApiEndpoint } from '../common/constants'
 // import { sleep } from '../common/functions'
@@ -22,15 +22,27 @@ export const Recipe = props => {
     const params = useParams()
     const { id } = params || {}
 
-    const [loaded,   setLoaded]   = useState(false)
-    const [recipe,   setRecipe]   = useState({})
-    const [recipeId,          ]   = useState(id)
+    const [ loaded,   setLoaded   ]   = useState(false)
+    const [ recipe,   setRecipe   ]   = useState({})
+    const [ recipeId, setRecipeId ]   = useState(id)
 
-    const [recipeTitles, setRecipeTitles] = useContext(RecipeListContext)
+    const [
+        recipeTitles,
+        // setRecipeTitles
+    ] = useContext(RecipeListContext)
 
-    useEffect(() => { /* need to get recipeTitles from backend */
-        // if (!recipeTitles.length) 
-    }, [])
+    const { state } = useLocation()
+    const linkedid = state?.linkedid
+    // console.log(35, {linkedid})
+
+    useEffect(() => {
+        console.log(39, {linkedid})
+        if (linkedid) setRecipeId(linkedid)
+    }, [linkedid])
+
+    useEffect(() => {
+        console.log(44, 'params', params)
+    }, [params])
 
     const getRecipe = useCallback(async () => {
         if (!recipeId) return
@@ -69,8 +81,10 @@ export const Recipe = props => {
     const PrevOrNextLink = ({ type = 'next' }) => {
 
         if (    !recipeTitles
-            ||  !recipeTitles instanceof Array
+            // ||  !recipeTitles instanceof Array
+            ||  !Array.isArray(recipeTitles)
             ||  !recipeTitles.length
+            ||  !id
         ) return null
 
         // console.log(76, typeof recipeTitles)
@@ -89,8 +103,20 @@ export const Recipe = props => {
         // console.log(70, {idx, nextRecipe})
 
         return type === 'prev'
-            ? (<Link className='prevnextlink' to={`/recipe/${nextRecipe._id}`}>&lt;&lt;&nbsp;&nbsp;</Link>)
-            : (<Link className='prevnextlink' to={`/recipe/${nextRecipe._id}`}>&nbsp;&nbsp;&gt;&gt;</Link>)
+            ? ( <Link
+                    title={prevRecipe.title}
+                    className='prevnextlink'
+                    to={`/recipe/${prevRecipe._id}`}
+                    state={{ linkedid: prevRecipe._id }}
+                >&lt;&lt;&nbsp;&nbsp;</Link>
+            )
+            : ( <Link
+                    title={nextRecipe.title}
+                    className='prevnextlink'
+                    to={`/recipe/${nextRecipe._id}`}
+                    state={{ linkedid: nextRecipe._id }}
+                >&nbsp;&nbsp;&gt;&gt;</Link>
+            )
     }    
 
     return (
