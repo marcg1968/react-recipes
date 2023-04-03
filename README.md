@@ -1,25 +1,34 @@
-# Getting Started with Create React App
+# React recipe app with database backend via RESTful API
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project relies on an API server, at https://recipes.greyling.info with several endpoints, e.g.
 
-## Available Scripts
+- /api/v2/recipe
+- /api/v2/recipes
+- /api/v2/by-ingredient
+- /api/v2/search
 
-In the project directory, you can run:
+See [my GitHub project page](https://github.com/marcg1968/njs-express-mongodb-recipes)
 
-### `yarn start`
+## Development
 
-Runs the app in the development mode.\
+Local development:
+
+`yarn start`
+
+runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Building and deploying
 
-### `yarn build`
+### Building
+
+e.g. to production demo site at [https://demo-react-recipeapp.titbits.tech](https://demo-react-recipeapp.titbits.tech)
+
+ `yarn build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -27,44 +36,30 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
 ### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The ``.htaccess`` file at the document root should contain the following:
 
-### `yarn build` fails to minify
+```
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteRule . /index.html [L]
+</IfModule>
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Transferring the built components by `rsync`:
+
+```bash
+rsync -avr -e 'ssh -p 65002' \
+    --delete-before \
+    ./build/static/ \
+    u417874717@titbits.tech:~/domains/demo-react-recipeapp.titbits.tech/public_html/static/
+rsync -avr -e 'ssh -p 65002' \
+    ./build/ \
+    u417874717@titbits.tech:~/domains/demo-react-recipeapp.titbits.tech/public_html/
+```
