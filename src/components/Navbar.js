@@ -11,6 +11,8 @@ export const Navbar = () => {
             &nbsp; | &nbsp;
             <Link to='/list'>List</Link>
             &nbsp; | &nbsp;
+            <Link to='/list-by-ingredient'>By Ingredient</Link>
+            &nbsp; | &nbsp;
             <Link to='/search'>Search</Link>
         </header>
     )

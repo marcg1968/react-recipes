@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { RecipeLI, RecipeUL } from './Builders'
 
 export const SortableTitles = props => {
 
@@ -10,16 +11,16 @@ export const SortableTitles = props => {
     } = props
 
     return (
-        <ul>
+        <RecipeUL>
         {
             data
             .sort((a, b) => a.title < b.title ? -1 : 1)
             .map((e, i) => (
-                <li key={`title-${i}`}>
+                <RecipeLI key={`title-${i}`}>
                     <Link to={`/recipe/${e._id}`}>{e.title}</Link>
-                </li>
+                </RecipeLI>
             ))
         }
-        </ul>
+        </RecipeUL>
     )
 }

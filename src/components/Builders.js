@@ -51,8 +51,12 @@ export const Header3 = styled.h3`
     text-align: center;
 `
 
-export const Header4 = styled.h4`
-    text-align: center;
+export const Header4 = styled.h4.attrs(props => ({
+    align: props.align || 'center'
+}))`
+    text-align: ${props => props.align};
+    margin-block-end: .3em;
+    // margin-block-start: 1em;
 `
 
 export const IngredientContainer = styled.div`
@@ -78,4 +82,26 @@ export const MethodContainer = styled.ol`
     width: 860px;
     margin: auto auto 2rem auto; /* auto centers it horizontally */
     // margin: auto; /* auto centers it horizontally */
+`
+
+export const RecipeUL = styled.ul`
+    text-align: left;
+    font-size: 1rem;
+    display: flex;
+    width: 800px;
+    flex-wrap: wrap;
+    /* list-style-type: square; */
+    list-style-type: none;
+    border: 0px solid salmon;
+`
+
+export const RecipeLI = styled.li`
+    margin: .3rem;
+    /* padding: .3rem; */
+    padding: .6rem;
+    text-align: left;
+    width: 350px;
+    /* width: calc((1000px / 3) - .6rem); */
+    border: 1px solid rgb(250, 128, 114);
+    border-color: rgba(250, 128, 114, 0.4);
 `
