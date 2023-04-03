@@ -6,4 +6,5 @@ export const ApiEndpoint = {
     urlRecipes: `${baseApiUrl}/recipes`,
     urlRecipe: `${baseApiUrl}/recipe`,
     urlByIngred: `${baseApiUrl}/by-ingredient`,
+    urlSearch: `${baseApiUrl}/search`,
 }

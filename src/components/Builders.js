@@ -87,14 +87,45 @@ export const GlobalStyles = createGlobalStyle`
     }    
 `
 
+export const SearchContainer = styled.div`
+    position: relative;
+    display: block;
+`
+
+export const SearchForm = styled.form`
+    display: flex;
+`
+
 export const Searchfield = styled.input`
     border-radius: 3px;
     border: 3px solid salmon;
     margin: 1rem;
-    padding: 1rem;
+    padding: .5rem 3rem .5rem .5rem;
     display: block;
-    // min-width: 50vw;
-    width: 500px;
+    font-size: 1.5rem;
+    color: #282c34;
+    flex: 1;
+`
+
+export const MagnifyingGlass = styled.div`
+    display: block;
+    position: absolute;
+    right: 1rem;
+    top: 1.7rem;
+    width: 3rem;
+`
+
+export const SearchSection = styled.section`
+    display: flex;
+    width: 800px;
+    flex-direction: column;
+    border: 1px solid salmon;
+    border-radius: 3px;
+    min-height: 90vh;
+`
+
+export const SearchDiv = styled.div`
+    // flex: 1;
 `
 
 export const MainHeader = styled.h1`
