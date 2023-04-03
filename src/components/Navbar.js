@@ -1,23 +1,26 @@
 // Navbar.js
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { StyledBurger } from './Builders'
 import { Burger, BurgerMenu } from './Burger'
 
 export const Navbar = () => {
 
+    const [open, setOpen] = useState(false)
+
     return (
         <header>
-            <Link to='/'>HOME</Link>
-            &nbsp; | &nbsp;
-            <Link to='/list'>List</Link>
-            &nbsp; | &nbsp;
-            <Link to='/list-by-ingredient'>By Ingredient</Link>
-            &nbsp; | &nbsp;
-            <Link to='/search'>Search</Link>
 
-            <Burger />
-            <BurgerMenu />
+            <Burger open={open} setOpen={setOpen} />
+            
+            <BurgerMenu open={open} setOpen={setOpen}>
+                <Link to='/'>HOME</Link>
+                <Link to='/list'>Full list of recipes</Link>
+                <Link to='/list-by-ingredient'>Index by ingredient</Link>
+                <Link to='/search'>Search</Link>
+            </BurgerMenu>
+            
         </header>
     )
 }
