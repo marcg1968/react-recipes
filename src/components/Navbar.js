@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Burger, BurgerMenu } from './Burger'
 
 export const Navbar = () => {
 
@@ -14,6 +15,9 @@ export const Navbar = () => {
             <Link to='/list-by-ingredient'>By Ingredient</Link>
             &nbsp; | &nbsp;
             <Link to='/search'>Search</Link>
+
+            <Burger />
+            <BurgerMenu />
         </header>
     )
 }
