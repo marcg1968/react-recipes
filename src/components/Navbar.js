@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { StyledBurger } from './Builders'
 import { Burger, BurgerMenu } from './Burger'
 
 export const Navbar = () => {

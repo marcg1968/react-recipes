@@ -1,17 +1,16 @@
 // App.js
 
-// import './App.css'
+import React, { createContext, useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import { ThemeProvider } from 'styled-components'
+import { theme } from './common/theme'
+import { GlobalStyles } from './components/Builders'
 import { List } from './components/List'
+import { ListByIngredient } from './components/ListByIngredient'
 import { Main } from './components/Main'
+import { Navbar } from './components/Navbar'
 import { Recipe } from './components/Recipe'
 import { Search } from './components/Search'
-import { Routes, Route } from 'react-router-dom'
-import { Navbar } from './components/Navbar'
-import React, { createContext, useState } from 'react'
-import { ListByIngredient } from './components/ListByIngredient'
-import { ThemeProvider } from 'styled-components'
-import { GlobalStyles } from './components/Builders'
-import { theme } from './common/theme'
 
 export const RecipeListContext = createContext(null)
 
@@ -20,7 +19,6 @@ function App() {
     const [recipeTitles, setRecipeTitles] = useState({})
 
     return (
-        // <div className='App'>
         <ThemeProvider theme={theme}>
             <GlobalStyles />
             <RecipeListContext.Provider value={[recipeTitles, setRecipeTitles]}>

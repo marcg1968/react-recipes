@@ -23,7 +23,8 @@ export const GlobalStyles = createGlobalStyle`
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        font-size: calc(10px + 2vmin);
+        // font-size: calc(10px + 2vmin);
+        font-size: 1.33rem;
         color: white;
     }
     .header {
@@ -54,6 +55,10 @@ export const GlobalStyles = createGlobalStyle`
     li {
         text-align: left;
     }
+
+    ol > li {
+        padding: 0 1rem 1.1rem 1rem;
+    }
     
     .link,
     li > a,
@@ -80,37 +85,6 @@ export const GlobalStyles = createGlobalStyle`
     .text-right {
         text-align: right;
     }    
-`
-
-export const LoadingWrapper = styled.div`
-    //align-items: flex-end;
-    //justify-content: center;
-
-    position: fixed;
-    top: ${props => 'top' in props ? props.top : 0};
-    left: 0px;
-    height: ${props => 'height' in props ? props.height : 0};
-    opacity: ${props => 'opacity' in props ? props.opacity : 0};
-    width: 100vw;
-    background-color: rgba(58, 14, 23, 0.75);
-    display: flex;
-    //transition: height 500ms ease 1500ms, opacity 2500ms ease 0s;
-    //transition: height 500ms ease 1500ms, opacity 2500ms ease 0s;
-    transition: opacity 2500ms ease 0s;
-`
-
-export const LoadingWrapper2 = styled.div`
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-`
-
-export const Dot = styled.div`
-    background-color: black;
-    border-radius: 50%;
-    width: 0.75rem;
-    height: 0.75rem;
-    margin: 0 0.25rem;
 `
 
 export const Searchfield = styled.input`
