@@ -9,16 +9,11 @@ import { RecipeListContext } from '../App'
 
 const { urlRecipes } = ApiEndpoint
 
-// export const List = ({ setRecipeTitles }) => {
 export const List = () => {
 
-    const [loaded,       setLoaded]         = useState(false)
-    // const [recipeTitles, setRecipeTitles]   = useState({})
+    const [ loaded, setLoaded ] = useState(false)
 
-    // const recipeTitles = useContext(RecipeListContext)
-    // const recipeListContext = useContext(RecipeListContext)
-    const [recipeTitles, setRecipeTitles] = useContext(RecipeListContext)
-    console.log(21, {recipeTitles})
+    const [ recipeTitles, setRecipeTitles] = useContext(RecipeListContext)
 
     const getRecipeTitles = useCallback(async () => {
         // await sleep(3000)

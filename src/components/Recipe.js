@@ -60,9 +60,7 @@ export const Recipe = props => {
         parts,
     } = recipe || {}
     
-    // parts[0].title = null // remove "__MAIN__"
     if (parts && parts instanceof Array) parts[0].title = null // remove "__MAIN__"
-    // const metadata = meta instanceof Array ? meta.reduce((acc, curr) => (acc[curr[0]] = curr[1], acc), {}) : {}
     const metadata = meta instanceof Array 
         ? meta.reduce((acc, curr) => {
             acc[curr[0]] = curr[1]
@@ -74,26 +72,17 @@ export const Recipe = props => {
     const PrevOrNextLink = ({ type = 'next' }) => {
 
         if (    !recipeTitles
-            // ||  !recipeTitles instanceof Array
             ||  !Array.isArray(recipeTitles)
             ||  !recipeTitles.length
             ||  !id
         ) return null
 
-        // console.log(76, typeof recipeTitles)
-        // console.log(77, recipeTitles instanceof Array)
-        // console.log(78, recipeTitles)
-        // return null
-    
         // find position in list
         const idx = recipeTitles.findIndex(e => e._id === id)
         const nextRecipe = (idx + 1 < recipeTitles.length) ? recipeTitles[(idx + 1)] : null
         const prevRecipe = (idx > 0) ? recipeTitles[(idx - 1)] : null
-        // console.log(84, {id, idx, nextRecipe, _next: recipeTitles[idx + 1], _len: recipeTitles.length})
         if (type === 'next' && !nextRecipe) return null
         if (type === 'prev' && !prevRecipe) return null
-        // // title={`Next recipe: ${nextRecipe.title}`} 
-        // console.log(70, {idx, nextRecipe})
 
         return type === 'prev'
             ? ( <Link
@@ -180,12 +169,3 @@ const Part = ({ title = null, ingreds = null, method = null, n = 0 }) => {
         </>
     )
 }
-
-/*
-const Ingredients = props => {
-    return (
-        <>
-        </>
-    )
-}
-*/

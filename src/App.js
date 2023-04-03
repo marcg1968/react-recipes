@@ -17,19 +17,16 @@ function App() {
 
     return (
         <div className='App'>
-            {/* <RecipeListContext.Provider value={recipeTitles}> */}
             <RecipeListContext.Provider value={[recipeTitles, setRecipeTitles]}>
                 <Navbar />
                 <main>
                     <Routes>
                         <Route path='/' element={ <Main /> } />
                         <Route path='/search' element={ <Search /> } />
-                        {/* <Route path='/list' element={ <List setRecipeTitles={setRecipeTitles} /> } /> */}
                         <Route path='/list' element={ <List /> } />
                         <Route
                             path='/recipe/:id'
                             element={<Recipe />}
-                            // loader={({ params }) => params.id}
                         />
                     </Routes>
                 </main>
