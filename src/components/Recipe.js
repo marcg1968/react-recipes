@@ -6,9 +6,7 @@ import axios from 'axios'
 import { ApiEndpoint } from '../common/constants'
 // import { sleep } from '../common/functions'
 import {
-    // Header2,
     Header3,
-    // Header4,
     IngredientRow,
     IngredientContainer,
     MethodContainer,
@@ -33,16 +31,11 @@ export const Recipe = props => {
 
     const { state } = useLocation()
     const linkedid = state?.linkedid
-    // console.log(35, {linkedid})
 
+    /* if a prev or next <Link/> has been clicked, update the recipeId state var */
     useEffect(() => {
-        console.log(39, {linkedid})
         if (linkedid) setRecipeId(linkedid)
     }, [linkedid])
-
-    useEffect(() => {
-        console.log(44, 'params', params)
-    }, [params])
 
     const getRecipe = useCallback(async () => {
         if (!recipeId) return
@@ -108,6 +101,7 @@ export const Recipe = props => {
                     className='prevnextlink'
                     to={`/recipe/${prevRecipe._id}`}
                     state={{ linkedid: prevRecipe._id }}
+                    onClick={() => setLoaded(false)}
                 >&lt;&lt;&nbsp;&nbsp;</Link>
             )
             : ( <Link
@@ -115,6 +109,7 @@ export const Recipe = props => {
                     className='prevnextlink'
                     to={`/recipe/${nextRecipe._id}`}
                     state={{ linkedid: nextRecipe._id }}
+                    onClick={() => setLoaded(false)}
                 >&nbsp;&nbsp;&gt;&gt;</Link>
             )
     }    
