@@ -185,7 +185,7 @@ export const RecipeLI = styled.li`
     /* padding: .3rem; */
     padding: .6rem;
     text-align: left;
-    width: 390px;
+    width: 360px;
     /* width: calc((1000px / 3) - .6rem); */
     border: 1px solid rgb(250, 128, 114);
     border-color: rgba(250, 128, 114, 0.4);
