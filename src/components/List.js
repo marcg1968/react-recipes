@@ -6,6 +6,7 @@ import { ApiEndpoint } from '../common/constants'
 // import { sleep } from '../common/functions'
 import { SortableTitles } from './SortableTitles'
 import { RecipeListContext } from '../App'
+import { MainHeader } from './Builders'
 
 const { urlRecipes } = ApiEndpoint
 
@@ -37,7 +38,7 @@ export const List = () => {
                     ? <p>loading ...</p>
                     : (
                         <>
-                            <h1>Recipes</h1>
+                            <MainHeader>Recipes</MainHeader>
                             <SortableTitles data={recipeTitles} />
                             {/* <pre>{JSON.stringify(recipeTitles, null, 2)}</pre> */}
                         </>

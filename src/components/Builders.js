@@ -1,6 +1,90 @@
 // Builders.js
 
-import styled from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
+
+export const GlobalStyles = createGlobalStyle`
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+    *, *::after, *::before {
+        box-sizing: border-box;
+    }
+    body {
+        height: 100vh;
+        width: 100vw;
+        text-align: center;
+        overflow-x: hidden; /* to enable shifting of menu out of view */
+    }
+    main {
+        background-color: #282c34;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: calc(10px + 2vmin);
+        color: white;
+    }
+    .header {
+        background-color: #282c34;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: calc(10px + 2vmin);
+        color: white;
+    }
+    
+    .App-link {
+        color: #61dafb;
+    }
+    
+    pre {
+        text-align: left;
+        font-size: .85rem;
+    }
+    
+    ul {
+        text-align: left;
+        font-size: 1rem;
+    }
+    
+    li {
+        text-align: left;
+    }
+    
+    .link,
+    li > a,
+    li > a:visited {
+        color: aliceblue;
+        color: cornflowerblue;
+    }
+    .prevnextlink {
+        text-decoration: none;
+        color: cornflowerblue;
+    }
+    div.ingred-col {
+        flex: 1;
+    }
+    div.ingred-col-1 {
+        flex: 1;
+    }
+    div.ingred-col-2 {
+        flex: 2;
+    }
+    div.ingred-col-3 {
+        flex: 3;
+    }
+    .text-right {
+        text-align: right;
+    }    
+`
 
 export const LoadingWrapper = styled.div`
     //align-items: flex-end;
@@ -41,6 +125,11 @@ export const Searchfield = styled.input`
     display: block;
     // min-width: 50vw;
     width: 500px;
+`
+
+export const MainHeader = styled.h1`
+    // margin-block-end: 1.33em;
+    margin-block-end: 1em;
 `
 
 export const Header2 = styled.h2`
@@ -100,7 +189,7 @@ export const RecipeLI = styled.li`
     /* padding: .3rem; */
     padding: .6rem;
     text-align: left;
-    width: 350px;
+    width: 390px;
     /* width: calc((1000px / 3) - .6rem); */
     border: 1px solid rgb(250, 128, 114);
     border-color: rgba(250, 128, 114, 0.4);
@@ -112,16 +201,12 @@ export const StyledMenu = styled.nav`
     flex-direction: column;
     justify-content: flex-start;
     background: ivory;
-    // transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(-100%)'};
     transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(150%)'};
-    height: 100vh;
-    // height: calc(100vh - 76px);
+    top: 4rem;
+    height: calc(100vh - 4rem);
     text-align: left;
     padding: 0;
     position: absolute;
-    top: 5rem;
-    top: 4rem;
-    // left: 0;
     right: 0.7rem;
     transition: transform 0.3s ease-in-out;
     padding: 1rem;

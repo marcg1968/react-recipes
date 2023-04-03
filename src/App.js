@@ -1,6 +1,6 @@
 // App.js
 
-import './App.css'
+// import './App.css'
 import { List } from './components/List'
 import { Main } from './components/Main'
 import { Recipe } from './components/Recipe'
@@ -9,6 +9,9 @@ import { Routes, Route } from 'react-router-dom'
 import { Navbar } from './components/Navbar'
 import React, { createContext, useState } from 'react'
 import { ListByIngredient } from './components/ListByIngredient'
+import { ThemeProvider } from 'styled-components'
+import { GlobalStyles } from './components/Builders'
+import { theme } from './common/theme'
 
 export const RecipeListContext = createContext(null)
 
@@ -17,7 +20,9 @@ function App() {
     const [recipeTitles, setRecipeTitles] = useState({})
 
     return (
-        <div className='App'>
+        // <div className='App'>
+        <ThemeProvider theme={theme}>
+            <GlobalStyles />
             <RecipeListContext.Provider value={[recipeTitles, setRecipeTitles]}>
                 <Navbar />
                 <main>
@@ -33,7 +38,7 @@ function App() {
                     </Routes>
                 </main>
             </RecipeListContext.Provider>
-        </div>
+        </ThemeProvider>
     )
 }
 
