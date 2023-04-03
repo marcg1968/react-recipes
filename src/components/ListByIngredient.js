@@ -67,7 +67,7 @@ export const ListByIngredient = () => {
                             <h1>By ingredient</h1>
                             {/* <SortableTitles data={recipeTitles} /> */}
                             {
-                                Object.keys(recipeTitles).length && recipesByIngred
+                                Object.keys(recipeTitles).length && recipesByIngred && Array.isArray(recipesByIngred)
                                     ? recipesByIngred.map((e, i) => (
                                         <div key={`byingred-${i}`}>
                                             <Header4 align={'left'}>
@@ -81,7 +81,7 @@ export const ListByIngredient = () => {
                                                     const { title } = found || {}
                                                     return (
                                                         <li key={`rec-${i}-${n}`}>
-                                                            <Link to={`/recipe/${r}`}>{title}</Link>
+                                                            <Link to={`/recipe/${r}`} state={{ noprevnext: true }}>{title}</Link>
                                                         </li>
                                                     )
                                                 })

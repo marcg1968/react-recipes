@@ -31,6 +31,7 @@ export const Recipe = props => {
 
     const { state } = useLocation()
     const linkedid = state?.linkedid
+    const noprevnext = state?.noprevnext
 
     /* if a prev or next <Link/> has been clicked, update the recipeId state var */
     useEffect(() => {
@@ -75,6 +76,7 @@ export const Recipe = props => {
             ||  !Array.isArray(recipeTitles)
             ||  !recipeTitles.length
             ||  !id
+            ||  noprevnext
         ) return null
 
         // find position in list
