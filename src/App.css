@@ -51,12 +51,23 @@ pre {
 ul {
     text-align: left;
     font-size: 1rem;
+    display: flex;
+    width: 1000px;
+    flex-wrap: wrap;
+    /* list-style-type: square; */
+    list-style-type: none;
+    border: 0px solid salmon;
 }
 
 li {
     margin: .3rem;
-    padding: .3rem;
+    /* padding: .3rem; */
+    padding: .6rem;
     text-align: left;
+    width: 350px;
+    /* width: calc((1000px / 3) - .6rem); */
+    border: 1px solid rgb(250, 128, 114);
+    border-color: rgba(250, 128, 114, 0.4);
 }
 .link,
 li > a,
