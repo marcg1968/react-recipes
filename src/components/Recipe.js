@@ -2,8 +2,6 @@
 
 import React, { useCallback, useEffect, useState, useContext } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
-import axios from 'axios'
-import { ApiEndpoint } from '../common/constants'
 // import { sleep } from '../common/functions'
 import {
     Header3,
@@ -12,8 +10,7 @@ import {
     MethodContainer,
 } from './Builders'
 import { RecipeListContext } from '../App'
-
-const { urlRecipe } = ApiEndpoint
+import { dbGetRecipe } from '../common/functions'
 
 export const Recipe = props => {
 
@@ -41,14 +38,9 @@ export const Recipe = props => {
     const getRecipe = useCallback(async () => {
         if (!recipeId) return
         // await sleep(3000)
-        try {
-            const data = await axios.get(`${urlRecipe}/${recipeId}`).then(({data}) => data)
-            console.log(18, data)
-            const { result } = data
-            setRecipe(result instanceof Array ? result[0] : result)
-            setLoaded(true)
-        }
-        catch (err) { console.error(19, { err }) }
+        const result = await dbGetRecipe(recipeId)
+        setRecipe(result instanceof Array ? result[0] : result)
+        setLoaded(true)
     }, [recipeId])
 
     useEffect(() => {

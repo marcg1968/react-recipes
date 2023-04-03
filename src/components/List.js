@@ -1,14 +1,11 @@
 // List.js
 
 import React, { useCallback, useEffect, useState, useContext } from 'react'
-import axios from 'axios'
-import { ApiEndpoint } from '../common/constants'
 // import { sleep } from '../common/functions'
 import { SortableTitles } from './SortableTitles'
 import { RecipeListContext } from '../App'
 import { MainHeader } from './Builders'
-
-const { urlRecipes } = ApiEndpoint
+import { dbGetRecipes } from '../common/functions'
 
 export const List = () => {
 
@@ -18,13 +15,9 @@ export const List = () => {
 
     const getRecipeTitles = useCallback(async () => {
         // await sleep(3000)
-        try {
-            const data = await axios.get(urlRecipes).then(({data}) => data)
-            console.log(27, data)
-            setRecipeTitles(data)
-            setLoaded(true)
-        }
-        catch (err) { console.error(19, { err }) }
+        const data = await dbGetRecipes()
+        setRecipeTitles(data || [])
+        setLoaded(true)
     }, [setRecipeTitles])
 
     useEffect(() => {

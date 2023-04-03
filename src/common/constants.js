@@ -1,5 +1,7 @@
 // constants.js
 
+export const API_TOKEN = process.env.REACT_APP_API_TOKEN
+
 export const baseApiUrl = 'https://recipes.greyling.info/api/v2'
 
 export const ApiEndpoint = {
@@ -7,4 +9,10 @@ export const ApiEndpoint = {
     urlRecipe: `${baseApiUrl}/recipe`,
     urlByIngred: `${baseApiUrl}/by-ingredient`,
     urlSearch: `${baseApiUrl}/search`,
+}
+
+export const axiosHeaders = {
+    headers: {
+      Authorization: `Basic ${API_TOKEN}`
+    }
 }

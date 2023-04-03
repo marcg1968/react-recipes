@@ -1,17 +1,11 @@
 // ListByIngredient.js
 
 import React, { useCallback, useEffect, useState, useContext } from 'react'
-import axios from 'axios'
-import { ApiEndpoint } from '../common/constants'
 // import { sleep } from '../common/functions'
 import { RecipeListContext } from '../App'
 import { Header4 } from './Builders'
 import { Link } from 'react-router-dom'
-
-const {
-    urlByIngred,
-    urlRecipes,
-} = ApiEndpoint
+import { dbGetRecipes, dbGetRecipesByIngredient } from '../common/functions'
 
 export const ListByIngredient = () => {
 
@@ -22,20 +16,9 @@ export const ListByIngredient = () => {
 
     const getRecipesByIngred = useCallback(async () => {
         // await sleep(3000)
-        try {
-            const data = await axios.get(urlByIngred).then(({data}) => data)
-            console.log(27, data)
-            let { result } = data || {}
-            if (result) {
-                result = Object
-                    .keys(result)
-                    .map(k => ([k, result[k]]))
-                    .sort((a, b) => a[0].toLowerCase() < b[0].toLowerCase() ? -1 : 1)
-            }
-            setRecipesByIngred(result)
-            setLoaded(true)
-        }
-        catch (err) { console.error(19, { err }) }
+        const result = await dbGetRecipesByIngredient()
+        setRecipesByIngred(result)
+        setLoaded(true)
     }, [])
 
     useEffect(() => {
@@ -44,13 +27,8 @@ export const ListByIngredient = () => {
 
     const getRecipeTitles = useCallback(async () => { /* TODO: handle duplication, i.e. also present in List.js  */
         // await sleep(3000)
-        try {
-            const data = await axios.get(urlRecipes).then(({data}) => data)
-            console.log(27, data)
-            setRecipeTitles(data)
-            setLoaded(true)
-        }
-        catch (err) { console.error(19, { err }) }
+        const data = await dbGetRecipes()
+        setRecipeTitles(data || [])
     }, [setRecipeTitles])
 
     useEffect(() => {
@@ -64,7 +42,7 @@ export const ListByIngredient = () => {
                     ? <p>loading ...</p>
                     : (
                         <>
-                            <h1>By ingredient</h1>
+                            <h1>Recipes by ingredient</h1>
                             {/* <SortableTitles data={recipeTitles} /> */}
                             {
                                 Object.keys(recipeTitles).length && recipesByIngred && Array.isArray(recipesByIngred)
