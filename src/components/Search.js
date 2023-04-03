@@ -1,7 +1,8 @@
 // Search.js
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
+import debounce from 'lodash.debounce'
 import { SearchDiv, Searchfield, SearchSection, MagnifyingGlass, SearchForm, SearchContainer } from './Builders'
 import { ApiEndpoint } from '../common/constants'
 import { SortableTitles } from './SortableTitles'
@@ -21,7 +22,6 @@ export const Search = () => {
         // await sleep(3000)
         try {
             const data = await axios.post(urlSearch, { q: searchText }).then(({data}) => data)
-            console.log(18, data)
             const { result } = data
             setSearchResult(result)
         }
@@ -38,12 +38,15 @@ export const Search = () => {
         debounce(doSearch, 6000)
     }
 
+    const debouncedHandleSearchTextChange = useMemo(
+        () => debounce(handleSearchTextChange, 1000),
+        []
+    )
+
     return (
         <SearchSection>
             <SearchDiv>Search:</SearchDiv>
-            
-            <SearchWithMagnifyingGlass handleSearchTextChange={handleSearchTextChange} />
-            
+            <SearchWithMagnifyingGlass changeHandler={debouncedHandleSearchTextChange} />
             {
                 searchText && searchResult.length
                     ? (
@@ -54,12 +57,11 @@ export const Search = () => {
                     )
                     : null
             }
-            {/* <pre>{JSON.stringify(searchResult, null, 2)}</pre> */}
         </SearchSection>
     )
 }
 
-const SearchWithMagnifyingGlass = ({ handleSearchTextChange }) => {
+const SearchWithMagnifyingGlass = ({ changeHandler }) => {
     return (
         <SearchContainer>
             <MagnifyingGlass className='MagnifyingGlass'>
@@ -67,7 +69,7 @@ const SearchWithMagnifyingGlass = ({ handleSearchTextChange }) => {
             </MagnifyingGlass>            
             <SearchForm>
                 <Searchfield
-                    onChange={handleSearchTextChange}
+                    onChange={changeHandler}
                 />
             </SearchForm>
         </SearchContainer>
