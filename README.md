@@ -1,6 +1,13 @@
-# Getting Started with Create React App
+# React recipe app with database backend via RESTful API
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project relies on an API server, at https://recipes.greyling.info with several endpoints, e.g.
+
+- /api/v2/recipe
+- /api/v2/recipes
+- /api/v2/by-ingredient
+- /api/v2/search
+
+See [my GitHub project page](https://github.com/marcg1968/njs-express-mongodb-recipes)
 
 ## Development
 
@@ -48,7 +55,11 @@ The ``.htaccess`` file at the document root should contain the following:
 Transferring the built components by `rsync`:
 
 ```bash
-#rsync -avrz -e 'ssh -p 65002' ./build/ u417874717@titbits.tech:~/domains/demo-react-recipeapp.titbits.tech/public_html/
-rsync -avr -e 'ssh -p 65002' --delete-before ./build/static/ u417874717@titbits.tech:~/domains/demo-react-recipeapp.titbits.tech/public_html/static/
-rsync -avr -e 'ssh -p 65002' ./build/ u417874717@titbits.tech:~/domains/demo-react-recipeapp.titbits.tech/public_html/
+rsync -avr -e 'ssh -p 65002' \
+    --delete-before \
+    ./build/static/ \
+    u417874717@titbits.tech:~/domains/demo-react-recipeapp.titbits.tech/public_html/static/
+rsync -avr -e 'ssh -p 65002' \
+    ./build/ \
+    u417874717@titbits.tech:~/domains/demo-react-recipeapp.titbits.tech/public_html/
 ```
