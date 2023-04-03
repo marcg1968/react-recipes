@@ -1,13 +1,10 @@
 // Search.js
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import axios from 'axios'
 import debounce from 'lodash.debounce'
 import { SearchDiv, Searchfield, SearchSection, MagnifyingGlass, SearchForm, SearchContainer } from './Builders'
-import { ApiEndpoint } from '../common/constants'
 import { SortableTitles } from './SortableTitles'
-
-const { urlSearch } = ApiEndpoint
+import { dbSearch, stripTags } from '../common/functions'
 
 export const Search = () => {
 
@@ -21,11 +18,9 @@ export const Search = () => {
         }
         // await sleep(3000)
         try {
-            const data = await axios.post(urlSearch, { q: searchText }).then(({data}) => data)
-            const { result } = data
-            setSearchResult(result)
-        }
-        catch (err) { console.error(25, { err }) }
+            const result = await dbSearch(searchText)
+            setSearchResult(result || [])
+        } catch (err) { console.error(25, { err }) }
     }, [searchText])
 
     useEffect(() => {
@@ -33,9 +28,9 @@ export const Search = () => {
     }, [doSearch]) /* NB dependency must be the const function */
 
     const handleSearchTextChange = evt => {
-        const text = evt.target.value
-        setSearchText(text.trim())
-        debounce(doSearch, 6000)
+        const text = stripTags(evt.target.value).trim()
+        setSearchText(text)
+        doSearch()
     }
 
     const debouncedHandleSearchTextChange = useMemo(
@@ -47,6 +42,7 @@ export const Search = () => {
         <SearchSection>
             <SearchDiv>Search:</SearchDiv>
             <SearchWithMagnifyingGlass changeHandler={debouncedHandleSearchTextChange} />
+            {/* <SearchWithMagnifyingGlass changeHandler={handleSearchTextChange} /> */}
             {
                 searchText && searchResult.length
                     ? (
