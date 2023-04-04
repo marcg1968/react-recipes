@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useState, useContext } from 'react'
 // import { sleep } from '../common/functions'
-import { RecipeListContext } from '../App'
+import { RecipeContext } from '../App'
 import { Header4 } from './Builders'
 import { Link } from 'react-router-dom'
 import { dbGetRecipes, dbGetRecipesByIngredient } from '../common/functions'
@@ -12,7 +12,7 @@ export const ListByIngredient = () => {
     const [ loaded,          setLoaded ]          = useState(false)
     const [ recipesByIngred, setRecipesByIngred ] = useState({})
 
-    const [ recipeTitles, setRecipeTitles] = useContext(RecipeListContext)
+    const [ recipeTitles, setRecipeTitles] = useContext(RecipeContext)
 
     const getRecipesByIngred = useCallback(async () => {
         // await sleep(3000)
@@ -43,7 +43,6 @@ export const ListByIngredient = () => {
                     : (
                         <>
                             <h1>Recipes by ingredient</h1>
-                            {/* <SortableTitles data={recipeTitles} /> */}
                             {
                                 Object.keys(recipeTitles).length && recipesByIngred && Array.isArray(recipesByIngred)
                                     ? recipesByIngred.map((e, i) => (
@@ -51,7 +50,6 @@ export const ListByIngredient = () => {
                                             <Header4 align={'left'}>
                                                 {e[0]}
                                             </Header4>
-                                            {/* <pre>{JSON.stringify(e[1], null, 2)}</pre> */}
                                             <ul>
                                             {
                                                 e[1].map((r, n) => {

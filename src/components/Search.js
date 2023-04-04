@@ -65,6 +65,11 @@ const SearchWithMagnifyingGlass = ({ changeHandler }) => {
             </MagnifyingGlass>            
             <SearchForm>
                 <Searchfield
+                    autoFocus={true}
+                    autocomplete="off"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    spellcheck={false}
                     onChange={changeHandler}
                 />
             </SearchForm>

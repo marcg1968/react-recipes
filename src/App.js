@@ -12,16 +12,24 @@ import { Navbar } from './components/Navbar'
 import { Recipe } from './components/Recipe'
 import { Search } from './components/Search'
 
-export const RecipeListContext = createContext(null)
+export const RecipeContext = createContext(null)
 
 function App() {
 
     const [recipeTitles, setRecipeTitles] = useState({})
+    const [factorBtn,    setFactorBtn]    = useState(false)
 
     return (
         <ThemeProvider theme={theme}>
             <GlobalStyles />
-            <RecipeListContext.Provider value={[recipeTitles, setRecipeTitles]}>
+            <RecipeContext.Provider
+                value={[
+                    recipeTitles,
+                    setRecipeTitles,
+                    factorBtn,
+                    setFactorBtn,
+                ]}
+            >
                 <Navbar />
                 <main>
                     <Routes>
@@ -35,7 +43,7 @@ function App() {
                         />
                     </Routes>
                 </main>
-            </RecipeListContext.Provider>
+            </RecipeContext.Provider>
         </ThemeProvider>
     )
 }

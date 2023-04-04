@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useState, useContext } from 'react'
 // import { sleep } from '../common/functions'
 import { SortableTitles } from './SortableTitles'
-import { RecipeListContext } from '../App'
+import { RecipeContext } from '../App'
 import { MainHeader } from './Builders'
 import { dbGetRecipes } from '../common/functions'
 
@@ -11,7 +11,7 @@ export const List = () => {
 
     const [ loaded, setLoaded ] = useState(false)
 
-    const [ recipeTitles, setRecipeTitles] = useContext(RecipeListContext)
+    const [ recipeTitles, setRecipeTitles] = useContext(RecipeContext)
 
     const getRecipeTitles = useCallback(async () => {
         // await sleep(3000)

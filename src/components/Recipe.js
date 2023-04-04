@@ -8,8 +8,11 @@ import {
     IngredientRow,
     IngredientContainer,
     MethodContainer,
+    FactorInput,
+    FactorText,
+    FactorSection,
 } from './Builders'
-import { RecipeListContext } from '../App'
+import { RecipeContext } from '../App'
 import { dbGetRecipe } from '../common/functions'
 
 export const Recipe = props => {
@@ -17,14 +20,17 @@ export const Recipe = props => {
     const params = useParams()
     const { id } = params || {}
 
-    const [ loaded,   setLoaded   ]   = useState(false)
-    const [ recipe,   setRecipe   ]   = useState({})
-    const [ recipeId, setRecipeId ]   = useState(id)
+    const [ loaded,   setLoaded ]   = useState(false)
+    const [ recipe,   setRecipe ]   = useState({})
+    const [ recipeId, setRecipeId ] = useState(id)
+    const [ factor,   setFactor ]   = useState(null)
 
     const [
         recipeTitles,
-        // setRecipeTitles
-    ] = useContext(RecipeListContext)
+        ,
+        factorBtn,
+        ,
+    ] = useContext(RecipeContext)
 
     const { state } = useLocation()
     const linkedid = state?.linkedid
@@ -95,7 +101,24 @@ export const Recipe = props => {
                     onClick={() => setLoaded(false)}
                 >&nbsp;&nbsp;&gt;&gt;</Link>
             )
-    }    
+    }
+
+    const changeHandler = evt => {
+        let n = evt.target.value.trim()
+        if (n === '') return setFactor(null)
+        if (typeof n === 'string' && n.match(/^(\d+|\d+[\s/\d]+\d+)$/)) {
+            n = n.split(/\s+/)
+                .map(e => e.match(/^[\d/]+$/) ? eval(e): e)
+                .reduce((acc, curr) => acc + curr)
+            return setFactor(n)
+        }
+        setFactor(null)
+    }
+
+    const clickHandler = evt => {
+        if (factor === null) return
+
+    }
 
     return (
         <div>
@@ -108,8 +131,30 @@ export const Recipe = props => {
                                 {title}&nbsp;{lang && lang === 'de' ? '(in German)' : ''}
                                 <PrevOrNextLink type='next' />
                             </h1>
+
                             {
-                                parts.map((e, i) => <Part key={`part-${i}`} { ...parts[i] } n={i} />) 
+                                factorBtn
+                                ? (
+                                    <FactorSection>
+                                        <FactorText>Change the recipe amounts by a certain factor (e.g. 2/3): </FactorText>
+                                        <FactorInput
+                                            type='text'
+                                            maxLength='9'
+                                            size='9'
+                                            autoFocus={true}
+                                            autocomplete="off"
+                                            autocorrect="off"
+                                            autocapitalize="off"
+                                            spellcheck={false}
+                                            onChange={changeHandler}
+                                            onBlur={clickHandler}
+                                        />
+                                    </FactorSection>
+                                )
+                                : null
+                            }
+                            {
+                                parts.map((e, i) => <Part key={`part-${i}`} { ...parts[i] } n={i} factor={factor} />) 
                             }
                             {/* <pre>{JSON.stringify(recipeTitles, null, 2)}</pre> */}
                         </>
@@ -120,19 +165,35 @@ export const Recipe = props => {
     )
 }
 
-const Part = ({ title = null, ingreds = null, method = null, n = 0 }) => {
+const Part = ({ title = null, ingreds = null, method = null, n = 0, factor = null }) => {
+
+    const amtsAsDecimal = ingreds.map(({ qty: { amt=0 } }, i) => {
+        if (typeof amt === 'number') return amt
+        if (typeof amt === 'string') {
+            return amt
+                .trim()
+                .split(/\s+/)
+                .map(e => e.match(/^[\d/]+$/) ? eval(e): e)
+                .reduce((acc, curr) => acc + curr)
+        }
+        return 0
+    })
 
     return (
-        <>
+        <>            
             {
                 ingreds
                     ? (
                         <IngredientContainer>
                             {   title && <Header3>{title}</Header3> }
                             {
-                                // ingreds.map(({ name='', qty={} }, i) => (
                                 ingreds.map(({ name='', qty: { amt='', unit='' } }, i) => {
                                     unit = unit === 'x' ? '' : `${unit}\u00A0`
+                                    amt = factor && typeof amtsAsDecimal[i] !== 'undefined'
+                                        ? (amtsAsDecimal[i] * factor) > 100
+                                            ? Math.round(amtsAsDecimal[i] * factor)
+                                            : Math.round((amtsAsDecimal[i] * factor)*100)/100
+                                        : amt
                                     return (
                                         <IngredientRow
                                             key={`ingred-${n}-${i}`}

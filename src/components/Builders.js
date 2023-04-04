@@ -285,3 +285,71 @@ export const StyledBurger = styled.button`
         }
     }
 `
+
+export const FactorSection = styled.section`
+    display: flex;
+    flex-direction: row;
+    margin: 1rem 6rem;
+`
+
+export const FactorText = styled.span`
+    font-size: 0.9rem;
+    flex: 3;
+    padding: .67rem .67rem 0 0;
+    text-align: right;
+`
+    
+export const FactorInput = styled.input.attrs(props => ({
+    maxlength: props.maxlength || 9,
+    size: props.size || 9,
+}))`
+    flex: 1;
+    font-size: 1.3rem;
+    padding-left: .2rem;
+    text-align: center;
+`
+
+export const FactorButton = styled.button`
+    flex: 1;
+    font-size: 1rem;
+    background: ivory;
+    margin: .3rem 0 .3rem 1rem;
+    padding: .2rem;
+    border-radius: 3px;
+    border: 2px solid salmon;
+`
+
+export const FABContainer = styled.div`
+    position: relative;
+`
+
+export const FABOuter = styled.div`
+    position: fixed;
+    bottom: 3rem;
+    right: 3rem;
+    border: 3px solid ivory;
+    background: salmon;
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding -1rem -1rem;
+    display: flex;
+    flex-direction: row;
+    color: ivory;
+    font-size: 6rem;
+    line-height: 3rem;
+    font-weight: 900;
+    box-shadow: 0 10px 25px rgba(100, 149, 237, 0.6);
+`
+
+export const FABInner = styled.div`
+    display: flex;
+    // flex: 1;
+    flex-direction: column;
+    justify-content: center; /* center-align children vertically*/
+    text-align: center; /* horizontal center alignment */
+    width: 100%; /* nec for text-alignment */
+    height: 100%; /* nec for text-alignment */
+`
