@@ -2,7 +2,8 @@
 
 export const API_TOKEN = process.env.REACT_APP_API_TOKEN
 
-export const baseApiUrl = 'https://recipes.greyling.info/api/v2'
+// export const baseApiUrl = 'https://recipes.greyling.info/api/v2'
+export const baseApiUrl = 'https://recipeapi.greyling.tech/api/v2'
 
 export const ApiEndpoint = {
     urlRecipes: `${baseApiUrl}/recipes`,
