@@ -28,7 +28,16 @@ export const Navbar = () => {
                 <Link to='/list-by-ingredient'>Index by ingredient</Link>
                 <Link to='/search'>Search</Link>
                 <br/><br/>
-                <div>Ability to multiply recipe amounts by a specified factor is {!!factorBtn ? ' ON' : ' OFF'}.</div>
+                
+                <div>
+                    Ability to multiply recipe amounts by a specified factor
+                    <br/>is <code>{!!factorBtn ? ' ON' : ' OFF'}.</code>
+                </div>
+
+                <br/>&nbsp;<br/>&nbsp;
+                <div>
+                    Version: {process.env.REACT_APP_VERSION}
+                </div>
             </BurgerMenu>
 
             <FactorFAB setFactorBtn={setFactorBtn} factorBtn={factorBtn} />
@@ -45,6 +54,7 @@ const FactorFAB = props => {
         <FABContainer>
             <FABOuter
                 className='FABOuter'
+                activated={factorBtn}
                 onClick={(evt) => {
                     console.log(48, {factorBtn})
                     setFactorBtn(prev => !prev)

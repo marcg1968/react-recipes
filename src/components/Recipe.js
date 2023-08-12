@@ -198,8 +198,8 @@ const Part = ({ title = null, ingreds = null, method = null, n = 0, factor = nul
                                         <IngredientRow
                                             key={`ingred-${n}-${i}`}
                                         >
-                                            <div className='ingred-col-1 text-right'>{amt}&nbsp;{unit}</div>
-                                            <div className='ingred-col-3'>{name}</div>
+                                            <div className='ingred-col-1 text-right print-text-right'>{amt}&nbsp;{unit}</div>
+                                            <div className='ingred-col-3 print-text-left'>{name}</div>
                                         </IngredientRow>
                                     )
                                 })

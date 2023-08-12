@@ -30,7 +30,6 @@ function App() {
                     setFactorBtn,
                 ]}
             >
-                <Navbar />
                 <main>
                     <Routes>
                         <Route path='/' element={ <Main /> } />
@@ -43,6 +42,11 @@ function App() {
                         />
                     </Routes>
                 </main>
+                <footer className='print-only'>
+                    <p>Source: {window.location.href}</p>
+                    <p>Printed: {(new Date()).toLocaleString()}</p>
+                </footer>
+                <Navbar /> {/* place here to ensure it appears on top of the stack */}
             </RecipeContext.Provider>
         </ThemeProvider>
     )

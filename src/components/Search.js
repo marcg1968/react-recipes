@@ -2,14 +2,15 @@
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import debounce from 'lodash.debounce'
-import { SearchDiv, Searchfield, SearchSection, MagnifyingGlass, SearchForm, SearchContainer } from './Builders'
+import { SearchDiv, Searchfield, SearchSection, MagnifyingGlass, SearchForm, SearchContainer, Spinner, ContainerSpinnerCentered } from './Builders'
 import { SortableTitles } from './SortableTitles'
 import { dbSearch, stripTags } from '../common/functions'
 
 export const Search = () => {
 
-    const [ searchText,   setSearchText ]   = useState('')
-    const [ searchResult, setSearchResult ] = useState([])
+    const [ searchText,     setSearchText ]     = useState('')
+    const [ searchResult,   setSearchResult ]   = useState([])
+    const [ searching,      setSearching ]      = useState(false)
 
     const doSearch = useCallback(async () => {
         if (searchText.trim().length < 3) {
@@ -18,8 +19,10 @@ export const Search = () => {
         }
         // await sleep(3000)
         try {
+            setSearching(true)
             const result = await dbSearch(searchText)
             setSearchResult(result || [])
+            setSearching(false)
         } catch (err) { console.error(25, { err }) }
     }, [searchText])
 
@@ -44,10 +47,24 @@ export const Search = () => {
             <SearchWithMagnifyingGlass changeHandler={debouncedHandleSearchTextChange} />
             {/* <SearchWithMagnifyingGlass changeHandler={handleSearchTextChange} /> */}
             {
-                searchText && searchResult.length
+                searching
+                    ? (
+                        <ContainerSpinnerCentered>
+                            <Spinner />
+                        </ContainerSpinnerCentered>
+    
+                    )
+                    : null 
+            }
+            {
+                // searchText && searchResult.length
+                searchText && !searching
                     ? (
                         <>
-                            <div>Searching for the term "{searchText}" yielded {searchResult.length} items:</div>
+                            <div>
+                                Searching for the term "{searchText}" yielded {searchResult.length} items
+                                {searchResult.length ? ':' : '.'}
+                            </div>
                             <SortableTitles data={searchResult} />
                         </>
                     )

@@ -1,6 +1,6 @@
 // Builders.js
 
-import styled, { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle, keyframes } from 'styled-components'
 
 export const GlobalStyles = createGlobalStyle`
     html, body {
@@ -70,6 +70,8 @@ export const GlobalStyles = createGlobalStyle`
         text-decoration: none;
         color: cornflowerblue;
     }
+
+    /* TODO: make these styled comps */
     div.ingred-col {
         flex: 1;
     }
@@ -82,9 +84,68 @@ export const GlobalStyles = createGlobalStyle`
     div.ingred-col-3 {
         flex: 3;
     }
+    
     .text-right {
         text-align: right;
-    }    
+    }
+    @media screen {
+        .print-only {
+            display: none;
+        }
+    }
+    @media print {
+        header, aside {
+            display: none;
+        }
+        body {
+            height: auto;
+            width: auto;
+            text-align: center;
+            overflow-x: auto;
+        }
+        footer.print-only {
+            display: block;
+            font-size: .9rem;
+            // color: #1c4286;
+            color: #333;
+            margin-top: 1rem;
+        }
+        main {
+            // width: 100% !important;
+            // padding: 0 !important;
+            // margin: 0 !important;
+            margin: .9rem !important;
+            padding: .9rem !important;
+            border: 1px solid grey;
+            background-color: transparent;
+            min-height: auto;
+            display: block;
+            align-items: left;
+            font-size: 1.33rem;
+            color: black;
+        }
+        h1 {
+            border-bottom: 1px solid grey;
+            padding: .3rem;
+            margin: .3rem;
+            // background-color: #abc;
+        }
+        div.ingred-col,
+        div.ingred-col-1,
+        div.ingred-col-2,
+        div.ingred-col-3 {
+            flex: 1;
+            // border: 1px solid red;
+            margin: .1rem;
+            padding: .1rem;
+        }
+        .print-text-right {
+            text-align: right;
+        }
+        .print-text-left {
+            text-align: left;
+        }
+    }
 `
 
 export const SearchContainer = styled.div`
@@ -150,22 +211,34 @@ export const Header4 = styled.h4.attrs(props => ({
 `
 
 export const IngredientContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    justify-content: center;
-    margin-bottom: 2rem;
+    @media print {
+        // border: 10px solid green;
+        margin: 1rem 0 2rem 0;
+    }
+    @media screen {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
 `
 
 export const IngredientRow = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    border: 1px solid salmon;
-    width: 680px;
-    margin: auto; /* centers it horizontally */
-    padding-bottom: .5rem;
-    padding-top: .5rem;
+    @media print {
+        // border: 5px solid magenta;
+        display: flex;
+    }
+    @media screen {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        border: 1px solid salmon;
+        width: 680px;
+        margin: auto; /* centers it horizontally */
+        padding-bottom: .5rem;
+        padding-top: .5rem;
+    }
 `
 
 export const MethodContainer = styled.ol`
@@ -328,7 +401,8 @@ export const FABOuter = styled.div`
     bottom: 3rem;
     right: 3rem;
     border: 3px solid ivory;
-    background: salmon;
+    // background: salmon;
+    background: ${props => props.activated ? 'salmon' : 'grey'};
     border-radius: 50%;
     width: 6rem;
     height: 6rem;
@@ -352,4 +426,31 @@ export const FABInner = styled.div`
     text-align: center; /* horizontal center alignment */
     width: 100%; /* nec for text-alignment */
     height: 100%; /* nec for text-alignment */
+`
+
+export const spinAnimation = keyframes`
+    0%      { transform: rotate(0deg); }
+    100%    { transform: rotate(360deg); }
+`
+
+export const Spinner = styled.div`
+    border: 10px solid transparent;
+    border-top: 10px solid salmon;
+    border-radius: 50%;
+    width: ${props => props.width || 80}px;
+    height: ${props => props.height || 80}px;
+    // animation: spin 1s linear infinite;
+    animation-name: ${spinAnimation};
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+`
+
+export const ContainerSpinnerCentered = styled.div.attrs(props => ({
+    // width: props.width && !isNaN(parseInt(props.width)) ? 40,
+    width:  props.width  && typeof parseInt(props.width)  === 'number' ? props.width  / 2 : 40,
+    height: props.height && typeof parseInt(props.height) === 'number' ? props.height / 2 : 40,
+}))`
+    position: fixed;
+    top:  calc(50% - ${props => props.height || 80}px);
+    left: calc(50% - ${props => props.width || 80}px);
 `

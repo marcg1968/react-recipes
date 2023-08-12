@@ -1,6 +1,10 @@
 # React recipe app with database backend via RESTful API
 
-This project relies on an API server, at https://recipes.greyling.info with several endpoints, e.g.
+This project relies on an API server (Node.js Express), at
+
+    https://recipeapi.greyling.tech
+
+with several endpoints, e.g.
 
 - /api/v2/recipe
 - /api/v2/recipes
@@ -8,6 +12,18 @@ This project relies on an API server, at https://recipes.greyling.info with seve
 - /api/v2/search
 
 See [my GitHub project page](https://github.com/marcg1968/njs-express-mongodb-recipes)
+
+## Environment
+
+A file `.env` (not checked in to version control) needs to exist with the following variables:
+
+```
+REACT_APP_VERSION=$npm_package_version
+REACT_APP_NAME=$npm_package_name
+REACT_APP_API_TOKEN="<TOKEN>"
+```
+
+where `<TOKEN>` matches one of the hardcoded tokens in the Node.js Express API server.
 
 ## Development
 
