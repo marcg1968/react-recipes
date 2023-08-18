@@ -11,9 +11,15 @@ import {
     FactorInput,
     FactorText,
     FactorSection,
+    MetaDiv,
+    ULSources,
+    LISources,
 } from './Builders'
 import { RecipeContext } from '../App'
-import { dbGetRecipe } from '../common/functions'
+import {
+    dbGetRecipe,
+    rndStr,
+} from '../common/functions'
 
 export const Recipe = props => {
 
@@ -133,6 +139,12 @@ export const Recipe = props => {
                             </h1>
 
                             {
+                                recipe && 'meta' in recipe
+                                    ? <Meta meta={recipe['meta']}/>
+                                    : null
+                            }
+
+                            {
                                 factorBtn
                                 ? (
                                     <FactorSection>
@@ -161,6 +173,9 @@ export const Recipe = props => {
                     )
                     : <p>loading ...</p>
             }
+
+            {/* <pre>{recipe ? JSON.stringify(recipe, null, 2) : null}</pre> */}
+            
         </div>
     )
 }
@@ -180,7 +195,7 @@ const Part = ({ title = null, ingreds = null, method = null, n = 0, factor = nul
     })
 
     return (
-        <>            
+        <>
             {
                 ingreds
                     ? (
@@ -222,5 +237,47 @@ const Part = ({ title = null, ingreds = null, method = null, n = 0, factor = nul
                     : null
             }
         </>
+    )
+}
+
+const Meta = ({ meta = [] }) => {
+
+    console.log(232, {meta})
+    const srcArr    = meta.filter(e => e[0]==='src')  .map(e => e[1])
+    const infoArr   = meta.filter(e => e[0]==='info') .map(e => e[1])
+    const categArr  = meta.filter(e => e[0]==='categ').map(e => e[1])
+
+    const outputArr = arr => arr.map((e, i) => <h3 key={`${rndStr()}-${i}`}>{e}</h3>)
+
+    return (
+        <MetaDiv>
+            {/* <pre>{srcArr.length     ? JSON.stringify(srcArr,    null, 2) : null}</pre>
+            <pre>{infoArr.length    ? JSON.stringify(infoArr,   null, 2) : null}</pre>
+            <pre>{categArr.length   ? JSON.stringify(categArr,  null, 2) : null}</pre>
+            {srcArr.length     ? outputArr(srcArr)      : null}
+            {infoArr.length    ? outputArr(infoArr)     : null}
+            {categArr.length   ? outputArr(categArr)    : null} */}
+            {
+                infoArr.length
+                    ? (
+                        infoArr.map((e, i) => <div key={`infop-${i+1}`}>{e}</div>)
+                    )
+                    : null
+            }
+            {
+                srcArr.length === 0
+                    ? null
+                    : srcArr.length === 1
+                        ? <code>Source: {srcArr[0]}</code>
+                        : (
+                            <>
+                                <code>Sources:</code>
+                                <ULSources>
+                                    {srcArr.map((e, i) => <LISources key={`srcs-${i+1}`}>{e}</LISources>)}
+                                </ULSources>
+                            </>
+                        ) 
+            }
+        </MetaDiv>
     )
 }

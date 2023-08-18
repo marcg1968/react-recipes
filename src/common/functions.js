@@ -75,3 +75,9 @@ export const dbGetRecipesByIngredient = async () => {
     catch (err) { console.error(19, { err }) }
     return false
 }
+
+export const rndStr = () => (
+    (new Date()).getTime().toString(36) 
+    + '-' 
+    + (Math.round(Math.random()*Math.pow(10,16))).toString(36)
+)

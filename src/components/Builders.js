@@ -88,11 +88,17 @@ export const GlobalStyles = createGlobalStyle`
     .text-right {
         text-align: right;
     }
+
+    code {
+        font-size: .9rem;
+    }
+
     @media screen {
         .print-only {
             display: none;
         }
     }
+
     @media print {
         header, aside {
             display: none;
@@ -408,7 +414,7 @@ export const FABOuter = styled.div`
     height: 6rem;
     margin-left: auto;
     margin-right: auto;
-    padding -1rem -1rem;
+    padding: -1rem -1rem; /* ?????? */
     display: flex;
     flex-direction: row;
     color: ivory;
@@ -453,4 +459,20 @@ export const ContainerSpinnerCentered = styled.div.attrs(props => ({
     position: fixed;
     top:  calc(50% - ${props => props.height || 80}px);
     left: calc(50% - ${props => props.width || 80}px);
+`
+
+export const MetaDiv = styled.div`
+    margin-bottom: 1rem;
+    text-align: left;
+    margin-left: 3rem;
+`
+
+export const ULSources = styled.ul`
+    font-size: .9rem;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+`
+
+export const LISources = styled.li`
+    font-size: .9rem;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 `
